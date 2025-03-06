@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class EligibilityService {
     public EligibilityResponse verify(EligibilityRequest eligibilityRequest) {
         log.debug("Verifying  eligibility.");
-        return null;
+        return new EligibilityResponse();
     }
 }
