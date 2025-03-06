@@ -1,11 +1,16 @@
 package com.demo.wel.eligibility.contract;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
-public class EligibilityResponse {
+@JsonPropertyOrder({"status", "data"})
+public class EligibilityResponse extends BaseResponse {
 
-    private String status = "success";
+    private final EligibilityData data;
+
+    public EligibilityResponse(EligibilityData data) {
+        super("success");
+        this.data = data;
+    }
 }

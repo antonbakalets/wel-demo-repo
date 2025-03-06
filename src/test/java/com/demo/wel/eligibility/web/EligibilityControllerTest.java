@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.demo.wel.eligibility.contract.EligibilityData;
 import com.demo.wel.eligibility.contract.EligibilityDependentRequest;
 import com.demo.wel.eligibility.contract.EligibilityEmployeeRequest;
 import com.demo.wel.eligibility.contract.EligibilityResponse;
@@ -22,6 +23,8 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 class EligibilityControllerTest {
 
+    private static final EligibilityResponse RESPONSE = new EligibilityResponse(EligibilityData.builder().build());
+
     @Autowired
     MockMvc mockMvc;
 
@@ -30,7 +33,7 @@ class EligibilityControllerTest {
 
     @Test
     void verifyEmployee() throws Exception {
-        when(eligibilityService.visit(any(EligibilityEmployeeRequest.class))).thenReturn(new EligibilityResponse());
+        when(eligibilityService.visit(any(EligibilityEmployeeRequest.class))).thenReturn(RESPONSE);
 
         mockMvc.perform(post("/api/eligibility/verify")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -51,7 +54,7 @@ class EligibilityControllerTest {
 
     @Test
     void verifyDependent() throws Exception {
-        when(eligibilityService.visit(any(EligibilityDependentRequest.class))).thenReturn(new EligibilityResponse());
+        when(eligibilityService.visit(any(EligibilityDependentRequest.class))).thenReturn(RESPONSE);
 
         mockMvc.perform(post("/api/eligibility/verify")
                         .contentType(MediaType.APPLICATION_JSON)

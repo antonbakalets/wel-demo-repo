@@ -1,6 +1,6 @@
 # Wel Demo
 
-TODO Quality gate
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=antonbakalets_wel-demo-repo&metric=coverage)](https://sonarcloud.io/summary/new_code?id=antonbakalets_wel-demo-repo)
 
 A small backend project.
 
@@ -20,5 +20,5 @@ The project should be available at [localhost:8080](http://localhost:8080)
 
 See also:
 
--  - GitHub Actions
--  - Sonar Cloud
+- [GitHub Actions](https://github.com/antonbakalets/wel-demo-repo/actions)
+- [Sonar Cloud](https://sonarcloud.io/project/overview?id=antonbakalets_wel-demo-repo)

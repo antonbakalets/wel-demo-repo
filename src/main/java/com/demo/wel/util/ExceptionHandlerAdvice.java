@@ -1,13 +1,11 @@
 package com.demo.wel.util;
 
-import java.util.HashMap;
+import com.demo.wel.eligibility.contract.ErrorData;
+import com.demo.wel.eligibility.contract.ErrorDetail;
+import com.demo.wel.eligibility.contract.ErrorResponse;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,15 +14,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionHandlerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, List<String>>> handleValidationErrors(MethodArgumentNotValidException ex) {
-        List<String> errors = ex.getBindingResult().getFieldErrors()
-                .stream().map(FieldError::getDefaultMessage).collect(Collectors.toList());
-        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
+    public ResponseEntity<ErrorResponse> handleValidationErrors(MethodArgumentNotValidException ex) {
+        List<ErrorDetail> details = ex.getBindingResult().getFieldErrors().stream()
+                .map(ErrorDetail::new)
+                .toList();
 
-    private Map<String, List<String>> getErrorsMap(List<String> errors) {
-        Map<String, List<String>> errorResponse = new HashMap<>();
-        errorResponse.put("errors", errors);
-        return errorResponse;
+        ErrorData errorData = ErrorData.builder()
+                .code(ErrorCode.VALIDATION_ERROR)
+                .message(ex.getBody().getDetail())
+                .details(details)
+                .build();
+        ErrorResponse errorResponse = new ErrorResponse(errorData);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }

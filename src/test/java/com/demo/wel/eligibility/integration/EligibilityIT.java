@@ -38,14 +38,16 @@ class EligibilityIT {
     }
 
     @ParameterizedTest
-    @CsvSource({"integration/validation/employee1.json"})
-    @CsvSource({"integration/validation/dependent1.json"})
-    void verifyValidationError(String input) throws Exception {
+    @CsvSource({"integration/validation/employee1.json,integration/validation/pattern1.json"})
+    @CsvSource({"integration/validation/dependent1.json,integration/validation/pattern1.json"})
+    void verifyValidationError(String input, String output) throws Exception {
         String requestJson = new ClassPathResource(input).getContentAsString(Charset.defaultCharset());
+        String responseJson = new ClassPathResource(output).getContentAsString(Charset.defaultCharset());
 
         mockMvc.perform(post("/api/eligibility/verify")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(content().json(responseJson));
     }
 }
