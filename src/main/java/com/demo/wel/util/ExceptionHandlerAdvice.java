@@ -4,6 +4,7 @@ import com.demo.wel.eligibility.contract.ErrorData;
 import com.demo.wel.eligibility.contract.ErrorDetail;
 import com.demo.wel.eligibility.contract.ErrorResponse;
 import java.util.List;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -34,6 +35,27 @@ public class ExceptionHandlerAdvice {
         ErrorData errorData = ErrorData.builder()
                 .code(ErrorCode.VALIDATION_ERROR)
                 .message(ex.getLocalizedMessage())
+                .build();
+
+        ErrorResponse errorResponse = new ErrorResponse(errorData);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public ResponseEntity<ErrorResponse> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex) {
+        ErrorData errorData = ErrorData.builder()
+                .code(ErrorCode.RECORD_NOT_FOUND)
+                .message(ex.getMessage())
+                .build();
+
+        ErrorResponse errorResponse = new ErrorResponse(errorData);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(FunctionalException.class)
+    public ResponseEntity<ErrorResponse> handleFunctionalException(FunctionalException ex) {
+        ErrorData errorData = ErrorData.builder()
+                .code(ex.getErrorCode())
+                .message(ex.getMessage())
                 .build();
 
         ErrorResponse errorResponse = new ErrorResponse(errorData);

@@ -1,7 +1,7 @@
 {
-  "employee_code": "d1",
+  "employee_code": "group1",
   "member_status": "dependent",
-  "employee_first_name": "First",
-  "employee_last_name": "Last",
-  "employee_date_of_birth": "1994-04-23"
+  "employee_first_name": "Rik",
+  "employee_last_name": "Second",
+  "employee_date_of_birth": "1998-09-05"
 }
