@@ -1,0 +1,13 @@
+spring:
+  application.name: WelDemo
+
+  flyway:
+    url: "jdbc:sqlite::memory:"
+    user: sa
+    password: sa
+
+  datasource:
+    url: "jdbc:sqlite::memory:"
+    username: sa
+    password: sa
+
