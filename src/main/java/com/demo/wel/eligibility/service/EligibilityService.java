@@ -37,7 +37,7 @@ public class EligibilityService {
         return new EligibilityResponse(EligibilityData.builder().build());
     }
 
-    private void validate(EligibilityRecord record, EligibilityRequest employeeRequest) {
+    protected static void validate(EligibilityRecord record, EligibilityRequest employeeRequest) {
         if (!employeeRequest.getEmployeeCode().equals(record.getEmployeeGroup())) {
             throw new FunctionalException(ErrorCode.VALIDATION_ERROR, "Employee group validation failed.");
         }
@@ -46,7 +46,7 @@ public class EligibilityService {
         }
     }
 
-    private static boolean eligibilityExpired(LocalDate endDate) {
+    protected static boolean eligibilityExpired(LocalDate endDate) {
         return endDate == null || endDate.isBefore(LocalDate.now());
     }
 }
