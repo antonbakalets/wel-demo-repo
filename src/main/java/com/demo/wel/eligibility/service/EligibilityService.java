@@ -15,13 +15,15 @@ public class EligibilityService {
 
     private final EligibilityRepository eligibilityRepository;
 
-    public EligibilityResponse visit(EligibilityEmployeeRequest eligibilityEmployeeRequest) {
-        log.info("Verifying eligibility for an employee: {}", eligibilityEmployeeRequest);
+    public EligibilityResponse visit(EligibilityEmployeeRequest employeeRequest) {
+        log.info("Verifying eligibility for an employee.");
+        eligibilityRepository.findEmployee(employeeRequest.getEmployeeId(), employeeRequest.getDateOfBirth());
         return new EligibilityResponse(EligibilityData.builder().build());
     }
 
-    public EligibilityResponse visit(EligibilityDependentRequest eligibilityDependentRequest) {
-        log.debug("Verifying eligibility for a dependent: {}", eligibilityDependentRequest);
+    public EligibilityResponse visit(EligibilityDependentRequest dependentRequest) {
+        log.debug("Verifying eligibility for a dependent.");
+        eligibilityRepository.findDependent(dependentRequest.getFirstName(), dependentRequest.getLastName(), dependentRequest.getDateOfBirth());
         return new EligibilityResponse(EligibilityData.builder().build());
     }
 }

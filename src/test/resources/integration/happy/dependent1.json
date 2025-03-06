@@ -2,5 +2,6 @@
   "employee_code": "d1",
   "member_status": "dependent",
   "employee_first_name": "First",
-  "employee_last_name": "Last"
+  "employee_last_name": "Last",
+  "employee_date_of_birth": "1994-04-23"
 }

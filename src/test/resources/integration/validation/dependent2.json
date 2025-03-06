@@ -1,7 +1,7 @@
 {
-  "employee_code": "employee code too long",
+  "employee_code": "12345",
   "member_status": "dependent",
   "employee_first_name": "First",
   "employee_last_name": "Last",
-  "employee_date_of_birth": "1994-04-23"
+  "employee_date_of_birth": "1994/04/23"
 }

@@ -1,5 +1,6 @@
 {
   "employee_code": "e1",
   "member_status": "employee",
-  "employee_id": "12345"
+  "employee_id": "12345",
+  "employee_date_of_birth": "1994-04-23"
 }

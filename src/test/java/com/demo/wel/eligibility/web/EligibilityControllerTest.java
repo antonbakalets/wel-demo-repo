@@ -41,7 +41,8 @@ class EligibilityControllerTest {
                                   {
                                       "employee_code": "e1",
                                       "member_status": "employee",
-                                      "employee_id": "12345"
+                                      "employee_id": "12345",
+                                      "employee_date_of_birth": "1994-04-23"
                                   }
                                   """))
                 .andExpect(status().isOk())
@@ -63,7 +64,8 @@ class EligibilityControllerTest {
                                       "employee_code": "d1",
                                       "member_status": "dependent",
                                       "employee_first_name": "First",
-                                      "employee_last_name": "Last"
+                                      "employee_last_name": "Last",
+                                      "employee_date_of_birth": "1995-04-23"
                                   }
                                   """))
                 .andExpect(status().isOk())

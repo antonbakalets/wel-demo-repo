@@ -38,8 +38,11 @@ class EligibilityIT {
     }
 
     @ParameterizedTest
-    @CsvSource({"integration/validation/employee1.json,integration/validation/pattern1.json"})
-    @CsvSource({"integration/validation/dependent1.json,integration/validation/pattern1.json"})
+    @CsvSource({
+            "integration/validation/employee1.json,integration/validation/pattern1.json",
+            "integration/validation/dependent1.json,integration/validation/pattern1.json",
+            "integration/validation/dependent2.json,integration/validation/dateformat1.json"
+    })
     void verifyValidationError(String input, String output) throws Exception {
         String requestJson = new ClassPathResource(input).getContentAsString(Charset.defaultCharset());
         String responseJson = new ClassPathResource(output).getContentAsString(Charset.defaultCharset());

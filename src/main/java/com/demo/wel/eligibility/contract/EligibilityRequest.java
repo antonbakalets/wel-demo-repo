@@ -1,12 +1,13 @@
 package com.demo.wel.eligibility.contract;
 
 import com.demo.wel.eligibility.service.EligibilityVisitor;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,15 +32,17 @@ public abstract class EligibilityRequest {
     @JsonProperty("employee_id")
     private String employeeId;
 
+    @NotNull
     @JsonProperty("employee_date_of_birth")
-    private LocalDateTime employeeDateOfBirth;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
 
     @Pattern(regexp = "^[a-zA-Z0-9 -']{1,50}$")
     @JsonProperty("employee_first_name")
-    private String employeeFirstName;
+    private String firstName;
 
     @Pattern(regexp = "^[a-zA-Z0-9 -']{1,50}$")
     @JsonProperty("employee_last_name")
-    private String employeeLastName;
+    private String lastName;
 
 }

@@ -7,14 +7,14 @@ public class EligibilityDependentRequest extends EligibilityRequest {
 
     @NotNull
     @Override
-    public String getEmployeeLastName() {
-        return super.getEmployeeLastName();
+    public String getLastName() {
+        return super.getLastName();
     }
 
     @NotNull
     @Override
-    public String getEmployeeFirstName() {
-        return super.getEmployeeFirstName();
+    public String getFirstName() {
+        return super.getFirstName();
     }
 
     @Override

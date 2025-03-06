@@ -1,0 +1,7 @@
+{
+  "status": "error",
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "JSON parse error: Cannot deserialize value of type `java.time.LocalDate` from String \"1994/04/23\": Failed to deserialize java.time.LocalDate: (java.time.format.DateTimeParseException) Text '1994/04/23' could not be parsed at index 4"
+  }
+}
