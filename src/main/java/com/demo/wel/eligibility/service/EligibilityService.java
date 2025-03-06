@@ -27,7 +27,7 @@ public class EligibilityService {
         EligibilityRecord record = eligibilityRepository.findEmployee(
                 employeeRequest.getEmployeeId(), employeeRequest.getDateOfBirth());
         validate(record, employeeRequest);
-        return new EligibilityResponse(EligibilityData.builder().build());
+        return new EligibilityResponse(EligibilityData.of(record));
     }
 
     public EligibilityResponse visit(EligibilityDependentRequest dependentRequest) {
@@ -35,7 +35,7 @@ public class EligibilityService {
         EligibilityRecord record = eligibilityRepository.findDependent(
                 dependentRequest.getFirstName(), dependentRequest.getLastName(), dependentRequest.getDateOfBirth());
         validate(record, dependentRequest);
-        return new EligibilityResponse(EligibilityData.builder().build());
+        return new EligibilityResponse(EligibilityData.of(record));
     }
 
     protected static void validate(EligibilityRecord record, EligibilityRequest employeeRequest) {

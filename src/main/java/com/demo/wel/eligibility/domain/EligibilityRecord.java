@@ -12,6 +12,8 @@ public class EligibilityRecord {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private String employeeGroup;
+    private LocalDate eligibilityStartDate;
     private LocalDate eligibilityEndDate;
+    private String employeeStatus;
+    private String employeeGroup;
 }

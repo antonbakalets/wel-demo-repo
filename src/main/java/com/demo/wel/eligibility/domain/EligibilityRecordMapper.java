@@ -10,17 +10,23 @@ import org.springframework.lang.NonNull;
 public class EligibilityRecordMapper implements RowMapper<EligibilityRecord> {
     @Override
     public EligibilityRecord mapRow(@NonNull ResultSet rs, int rowNum) throws SQLException {
-        LocalDate eligibilityEndDate = LocalDate.parse(rs.getString("eligibility_end_date"), DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDate birthDate = LocalDate.parse(rs.getString("date_of_birth"), DateTimeFormatter.ISO_LOCAL_DATE);
-
         return EligibilityRecord.builder()
                 .memberUniqueId(rs.getString("member_unique_id"))
-                .memberUniqueId(rs.getString("first_name"))
-                .memberUniqueId(rs.getString("last_name"))
-                .birthDate(birthDate)
+                .firstName(rs.getString("first_name"))
+                .lastName(rs.getString("last_name"))
+                .birthDate(parseDate(rs, "date_of_birth"))
+                .eligibilityStartDate(parseDate(rs, "eligibility_start_date"))
+                .eligibilityEndDate(parseDate(rs, "eligibility_end_date"))
                 .employeeGroup(rs.getString("employee_group"))
-                .eligibilityEndDate(eligibilityEndDate)
+                .employeeStatus(rs.getString("employee_status"))
                 .build();
+    }
+
+    private static LocalDate parseDate(ResultSet rs, String columnLabel) throws SQLException {
+        String value = rs.getString(columnLabel);
+        return value == null
+                ? null
+                : LocalDate.parse(value, DateTimeFormatter.ISO_LOCAL_DATE);
     }
 
 }

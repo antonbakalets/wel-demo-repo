@@ -17,8 +17,10 @@ public class EligibilityRepository {
                 first_name,
                 last_name,
                 date_of_birth,
-                employee_group,
-                eligibility_end_date
+                eligibility_start_date,
+                eligibility_end_date,
+                employee_status,
+                employee_group
             FROM eligibility_records
             WHERE member_unique_id = ?
                 AND date_of_birth = ?
@@ -29,8 +31,10 @@ public class EligibilityRepository {
                 first_name,
                 last_name,
                 date_of_birth,
-                employee_group,
-                eligibility_end_date
+                eligibility_start_date,
+                eligibility_end_date,
+                employee_status,
+                employee_group
             FROM eligibility_records
             WHERE first_name = ?
                 AND last_name = ?

@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "data": {
+    "memberUniqueId": "e2346",
+    "firstName": "Rik",
+    "lastName": "Second",
+    "dateOfBirth": "1998-09-05",
+    "eligibilityStartDate": null,
+    "eligibilityEndDate": "2026-03-02",
+    "employeeStatus": null,
+    "employeeGroup": "group1"
+  }
+}

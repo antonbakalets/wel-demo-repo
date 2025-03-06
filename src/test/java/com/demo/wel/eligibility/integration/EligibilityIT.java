@@ -1,6 +1,7 @@
 package com.demo.wel.eligibility.integration;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,8 +24,8 @@ class EligibilityIT {
 
     @ParameterizedTest
     @CsvSource({
-            "integration/happy/employee1.json, integration/happy/output1.json",
-            "integration/happy/dependent1.json, integration/happy/output1.json"
+            "integration/happy/employee1.json, integration/happy/output-d1.json",
+            "integration/happy/dependent1.json, integration/happy/output-e1.json"
     })
     void verifyHappyPath(String input, String output) throws Exception {
         String requestJson = new ClassPathResource(input).getContentAsString(Charset.defaultCharset());
@@ -33,6 +34,7 @@ class EligibilityIT {
         mockMvc.perform(post("/api/eligibility/verify")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(responseJson));
     }
