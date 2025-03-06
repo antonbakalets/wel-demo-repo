@@ -12,6 +12,7 @@ import com.demo.wel.util.FunctionalException;
 import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,7 +40,8 @@ public class EligibilityService {
 
     protected static void validate(EligibilityRecord record, EligibilityRequest employeeRequest) {
         if (!employeeRequest.getEmployeeCode().equals(record.getEmployeeGroup())) {
-            throw new FunctionalException(ErrorCode.VALIDATION_ERROR, "Employee group validation failed.");
+            throw new FunctionalException(ErrorCode.VALIDATION_ERROR,
+                    "Employee group validation failed.", HttpStatus.FORBIDDEN);
         }
         if (eligibilityExpired(record.getEligibilityEndDate())) {
             throw new FunctionalException(ErrorCode.ELIGIBILITY_EXPIRED, "Eligibility has expired.");
