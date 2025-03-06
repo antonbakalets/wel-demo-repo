@@ -1,47 +1,32 @@
 package com.demo.wel.config;
 
+import com.demo.wel.security.JwtAuthenticationFilter;
+import com.demo.wel.security.JwtUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/eligibility/verify").permitAll() // TODO
-                        .anyRequest().authenticated()
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/login").permitAll()
+                        .requestMatchers("/api/eligibility/verify").hasRole("API_USER").anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
-                        .loginPage("/api/login")
-                        .permitAll()
-                )
-                .logout(LogoutConfigurer::permitAll)
-                .csrf(AbstractHttpConfigurer::disable);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
     }
 
 }

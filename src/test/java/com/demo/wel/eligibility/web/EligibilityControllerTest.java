@@ -20,7 +20,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class EligibilityControllerTest {
 
     private static final EligibilityResponse RESPONSE = new EligibilityResponse(EligibilityData.builder().build());
