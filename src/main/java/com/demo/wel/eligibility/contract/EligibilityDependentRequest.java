@@ -1,5 +1,6 @@
 package com.demo.wel.eligibility.contract;
 
+import com.demo.wel.eligibility.service.EligibilityVisitor;
 import jakarta.validation.constraints.NotNull;
 
 public class EligibilityDependentRequest extends EligibilityRequest {
@@ -14,5 +15,10 @@ public class EligibilityDependentRequest extends EligibilityRequest {
     @Override
     public String getEmployeeFirstName() {
         return super.getEmployeeFirstName();
+    }
+
+    @Override
+    public void accept(EligibilityVisitor eligibilityVisitor) {
+        eligibilityVisitor.visit(this);
     }
 }

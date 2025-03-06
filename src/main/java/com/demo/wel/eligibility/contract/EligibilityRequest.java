@@ -1,8 +1,10 @@
 package com.demo.wel.eligibility.contract;
 
+import com.demo.wel.eligibility.service.EligibilityVisitor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -16,9 +18,12 @@ import lombok.Setter;
         @JsonSubTypes.Type(value = EligibilityEmployeeRequest.class, name = "employee"),
         @JsonSubTypes.Type(value = EligibilityDependentRequest.class, name = "dependent"),
 })
-public class EligibilityRequest {
+public abstract class EligibilityRequest {
 
-    @Pattern(regexp = "^[a-zA-Z0-9]{10}$")
+    public abstract void accept(EligibilityVisitor eligibilityVisitor);
+
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z0-9]{1,10}$")
     @JsonProperty("employee_code")
     private String employeeCode;
 

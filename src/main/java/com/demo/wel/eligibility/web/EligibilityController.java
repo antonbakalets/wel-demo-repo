@@ -2,6 +2,7 @@ package com.demo.wel.eligibility.web;
 
 import com.demo.wel.eligibility.contract.EligibilityRequest;
 import com.demo.wel.eligibility.contract.EligibilityResponse;
+import com.demo.wel.eligibility.service.DefaultEligibilityVisitor;
 import com.demo.wel.eligibility.service.EligibilityService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,8 @@ public class EligibilityController {
 
     @PostMapping("/api/eligibility/verify")
     public EligibilityResponse verify(@RequestBody @Valid EligibilityRequest eligibilityRequest) {
-        return eligibilityService.verify(eligibilityRequest);
+        DefaultEligibilityVisitor visitor = new DefaultEligibilityVisitor(eligibilityService);
+        eligibilityRequest.accept(visitor);
+        return visitor.getResponse();
     }
 }

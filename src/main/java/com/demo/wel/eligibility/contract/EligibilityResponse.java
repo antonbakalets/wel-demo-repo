@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class EligibilityResponse {
 
-    private String status;
+    private String status = "success";
 }

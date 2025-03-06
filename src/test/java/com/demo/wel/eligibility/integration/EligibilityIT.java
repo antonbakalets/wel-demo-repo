@@ -22,7 +22,10 @@ class EligibilityIT {
     MockMvc mockMvc;
 
     @ParameterizedTest
-    @CsvSource({"integration/happy/input1.json, integration/happy/output1.json"})
+    @CsvSource({
+            "integration/happy/employee1.json, integration/happy/output1.json",
+            "integration/happy/dependent1.json, integration/happy/output1.json"
+    })
     void verify(String input, String output) throws Exception {
         String requestJson = new ClassPathResource(input).getContentAsString(Charset.defaultCharset());
         String responseJson = new ClassPathResource(output).getContentAsString(Charset.defaultCharset());
