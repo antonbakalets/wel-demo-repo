@@ -38,7 +38,7 @@ class EligibilityControllerTest {
                                   {
                                       "employee_code": "e1",
                                       "member_status": "employee",
-                                      "employee_id": "123"
+                                      "employee_id": "12345"
                                   }
                                   """))
                 .andExpect(status().isOk())

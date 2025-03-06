@@ -27,15 +27,18 @@ public abstract class EligibilityRequest {
     @JsonProperty("employee_code")
     private String employeeCode;
 
+    @Pattern(regexp = "^[a-zA-Z0-9]{5,20}$")
     @JsonProperty("employee_id")
     private String employeeId;
 
     @JsonProperty("employee_date_of_birth")
     private LocalDateTime employeeDateOfBirth;
 
+    @Pattern(regexp = "^[a-zA-Z0-9 -']{1,50}$")
     @JsonProperty("employee_first_name")
     private String employeeFirstName;
 
+    @Pattern(regexp = "^[a-zA-Z0-9 -']{1,50}$")
     @JsonProperty("employee_last_name")
     private String employeeLastName;
 

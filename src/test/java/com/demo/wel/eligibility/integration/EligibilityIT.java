@@ -26,7 +26,7 @@ class EligibilityIT {
             "integration/happy/employee1.json, integration/happy/output1.json",
             "integration/happy/dependent1.json, integration/happy/output1.json"
     })
-    void verify(String input, String output) throws Exception {
+    void verifyHappyPath(String input, String output) throws Exception {
         String requestJson = new ClassPathResource(input).getContentAsString(Charset.defaultCharset());
         String responseJson = new ClassPathResource(output).getContentAsString(Charset.defaultCharset());
 
@@ -38,8 +38,9 @@ class EligibilityIT {
     }
 
     @ParameterizedTest
-    @CsvSource({"integration/validation/input1.json"})
-    void verify(String input) throws Exception {
+    @CsvSource({"integration/validation/employee1.json"})
+    @CsvSource({"integration/validation/dependent1.json"})
+    void verifyValidationError(String input) throws Exception {
         String requestJson = new ClassPathResource(input).getContentAsString(Charset.defaultCharset());
 
         mockMvc.perform(post("/api/eligibility/verify")
