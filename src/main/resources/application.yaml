@@ -2,12 +2,12 @@ spring:
   application.name: WelDemo
 
   flyway:
-    url: "jdbc:sqlite::memory"
+    url: "jdbc:sqlite:local.data"
     user: sa
     password: sa
 
   datasource:
-    url: "jdbc:sqlite::memory"
+    url: "jdbc:sqlite:local.data"
     username: sa
     password: sa
 

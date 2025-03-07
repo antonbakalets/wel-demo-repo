@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public class AuditLogRepository {
 
     private static final String INSERT_LOG = """
-            INSERT INTO audit_log (timestamp, request_parameters, ip_address, result_status, response_code)
+            INSERT INTO audit_logs (timestamp, request_params, ip_address, result_status, response_code)
             VALUES (?, ?, ?, ?, ?)
             """;
 

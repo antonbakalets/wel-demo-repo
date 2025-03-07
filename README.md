@@ -17,6 +17,7 @@ To start the project run commands:
 ```
 
 The project should be available at [localhost:8080](http://localhost:8080)
+The project Swagger UI should be available at http://localhost:8080/swagger-ui/index.html
 
 See also:
 
