@@ -6,15 +6,14 @@ import io.jsonwebtoken.Jwts;
 import java.util.Date;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import javax.crypto.SecretKey;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtUtil {
 
-    private static final long ACCESS_TOKEN_VALIDITY = 15 * 60 * 1000; // 15 minutes
-    private static final long REFRESH_TOKEN_VALIDITY = 60 * 60 * 1000; // 1 hour
+    private static final long ACCESS_TOKEN_VALIDITY = 15 * 60 * 1000L; // 15 minutes
+    private static final long REFRESH_TOKEN_VALIDITY = 60 * 60 * 1000L; // 1 hour
 
     private final SecretKey secretKey = Jwts.SIG.HS256.key().build();
 

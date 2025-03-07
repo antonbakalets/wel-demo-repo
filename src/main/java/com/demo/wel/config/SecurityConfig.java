@@ -2,6 +2,8 @@ package com.demo.wel.config;
 
 import com.demo.wel.security.JwtAuthenticationFilter;
 import com.demo.wel.security.JwtUtil;
+import com.demo.wel.security.WelAccessDeniedHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,7 +18,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtUtil jwtUtil, ObjectMapper objectMapper)
+            throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -24,7 +27,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/eligibility/verify").hasRole("API_USER").anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling((exceptionHandling) ->
+                        exceptionHandling.accessDeniedHandler(new WelAccessDeniedHandler(objectMapper))
+                );
 
         return http.build();
     }
